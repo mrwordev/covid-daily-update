@@ -10,7 +10,7 @@
 
 # production
 /build
-/extracted/*
+/extracted/**
 /sources/*
 
 # misc

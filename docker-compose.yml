@@ -10,3 +10,6 @@ services:
       dockerfile: ./Dockerfile
     ports:
       - "18001:5000"
+    volumes:
+      - ./sources:/usr/src/app/sources
+      - ./extracted:/usr/src/app/extracted
