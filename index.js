@@ -97,7 +97,7 @@ app.get('/extract', async (req, res) => {
           result[value.toLowerCase()] = {};
           currentCountry = value.toLowerCase();
         } else {
-          result[currentCountry][template[_ - 1]] = value.trim();
+          result[currentCountry][template[_ - 1]] = value.replace(',','').trim();
         }
       });
     });
