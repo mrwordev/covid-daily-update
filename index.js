@@ -55,6 +55,8 @@ const exrtractFilename = path.join(
   moment().format('DDMMYYYY') + '.json'
 );
 app.get('/sync', async (req, res) => {
+  if (!req.query.key || req.query.key != 'xi47XkG1XbaadvuA6B8o')
+    return res.status(403).send('Unauthorized');
   const result = await axios.get('https://www.worldometers.info/coronavirus/');
   fs.writeFile(filename, result.data, function(err) {
     if (err) throw err;
@@ -64,6 +66,8 @@ app.get('/sync', async (req, res) => {
 });
 
 app.get('/extract', async (req, res) => {
+  if (!req.query.key || req.query.key != 'xi47XkG1XbaadvuA6B8o')
+    return res.status(403).send('Unauthorized');
   const result = {};
   const template = [
     'totalCases',
