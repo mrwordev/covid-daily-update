@@ -169,8 +169,9 @@
       if (currentCountry) {
         var covid = countryCovidList[currentCountry.properties.name.toLowerCase()]
         if (covid) {
-          var scale = Math.abs((parseInt(covid["totalCases"]) * 100) / 100000 - 100)
-          fill(currentCountry, colorScale(scale))
+          var scale = (parseInt(covid["totalCases"]) * 100) / 50000
+          var scale = scale > 100 ? 0 : scale - 100;
+          fill(currentCountry, colorScale(Math.abs(scale)))
         } else {
           fill(currentCountry, colorCountry)
 
