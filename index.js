@@ -60,7 +60,6 @@ app.get('/sync', async (req, res) => {
   const result = await axios.get('https://www.worldometers.info/coronavirus/');
   fs.writeFile(filename, result.data, function(err) {
     if (err) throw err;
-    console.log('Saved!');
     res.status(200).send('Saved');
   });
 });

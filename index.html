@@ -166,13 +166,10 @@
       for (const country of countries.features) {
         stroke(country, colorGraticule)
       }
-      console.log(currentCountry)
       if (currentCountry) {
         var covid = countryCovidList[currentCountry.properties.name.toLowerCase()]
         if (covid) {
-          console.log(covid)
           var scale = Math.abs((parseInt(covid["totalCases"]) * 100) / 100000 - 100)
-          console.log(scale)
           fill(currentCountry, colorScale(scale))
         } else {
           fill(currentCountry, colorCountry)
@@ -208,7 +205,6 @@
     }
 
     function loadData(cb) {
-      console.log('check');
       var world = null;
       var countries = null;
       var covids = null;
