@@ -141,7 +141,7 @@ endpoints(app);
 
 // CRON Job
 const cron = require('cron').CronJob;
-const job = new cron('0 */6 * * *', function() {
+const job = new cron('0 */6 * * *', async () => {
   // Sync data
   await axios.get('/sync?key='+process.env.KEY);
   // Extract data
