@@ -54,8 +54,9 @@ const exrtractFilename = path.join(
   'extracted',
   moment().format('DDMMYYYY') + '.json'
 );
+
 app.get('/sync', async (req, res) => {
-  if (!req.query.key || req.query.key != 'xi47XkG1XbaadvuA6B8o')
+  if (!req.query.key || req.query.key != process.env.KEY)
     return res.status(403).send('Unauthorized');
   const result = await axios.get('https://www.worldometers.info/coronavirus/');
   fs.writeFile(filename, result.data, function(err) {
@@ -65,7 +66,7 @@ app.get('/sync', async (req, res) => {
 });
 
 app.get('/extract', async (req, res) => {
-  if (!req.query.key || req.query.key != 'xi47XkG1XbaadvuA6B8o')
+  if (!req.query.key || req.query.key != process.env.KEY)
     return res.status(403).send('Unauthorized');
   const result = {};
   const template = [
@@ -137,3 +138,13 @@ app.get('/', function(req, res) {
 // Initiate website
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
 endpoints(app);
+
+// CRON Job
+const cron = require('cron').CronJob;
+const job = new cron('0 */6 * * *', function() {
+  // Sync data
+  await axios.get('/sync?key='+process.env.KEY);
+  // Extract data
+  await axios.get('/extract?key='+process.env.KEY);
+}, null, true, 'Asia/Bangkok');
+job.start();
